@@ -209,7 +209,6 @@ def parse_file(gold_file, predictions_file):
     with open(output_file, "w+") as f:
         json.dump(d, f, indent=2)
 
-
 def _extract_split_from_file_path(file_path):
     # Parse the experiment ID.
     prediction_file_name = os.path.basename(file_path)

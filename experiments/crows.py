@@ -47,6 +47,12 @@ parser.add_argument(
     help="Determines which CrowS-Pairs dataset split to evaluate against.",
 )
 
+parser.add_argument(
+    "--output_path",
+    action="store",
+    type=str
+)
+
 
 if __name__ == "__main__":
     args = parser.parse_args()
@@ -80,6 +86,6 @@ if __name__ == "__main__":
 
     print(f"Metric: {results}")
 
-    os.makedirs(f"{args.persistent_dir}/results/crows", exist_ok=True)
-    with open(f"{args.persistent_dir}/results/crows/{experiment_id}.json", "w") as f:
+    os.makedirs(os.path.dirname(args.output_path), exist_ok=True)
+    with open(args.output_path+".json", "w") as f:
         json.dump(results, f)
