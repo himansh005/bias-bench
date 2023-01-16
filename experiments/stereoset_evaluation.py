@@ -41,6 +41,14 @@ parser.add_argument(
     help="Path to save the results to.",
 )
 
+parser.add_argument(
+    "--output_path",
+    action="store",
+    type=str,
+    default=None,
+    help="Path to save the results to.",
+)
+
 
 class ScoreEvaluator:
     def __init__(self, gold_file_path, predictions_file_path):
@@ -200,12 +208,15 @@ def parse_file(gold_file, predictions_file):
             d = json.load(f)
     else:
         d = {}
-
+        
     # Extract the experiment ID from the file path.
     file_name = os.path.basename(predictions_file)
     experiment_id = os.path.splitext(file_name)[0]
     d[experiment_id] = overall
 
+    output_file = os.path.join(args.output_path, "stereoset.json")
+    os.makedirs(os.path.dirname(args.output_path), exist_ok=True)
+    
     with open(output_file, "w+") as f:
         json.dump(d, f, indent=2)
 

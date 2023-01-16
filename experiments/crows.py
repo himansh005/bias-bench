@@ -1,7 +1,6 @@
 import argparse
 import os
 import json
-
 import transformers
 
 from bias_bench.benchmark.crows import CrowSPairsRunner
@@ -87,5 +86,5 @@ if __name__ == "__main__":
     print(f"Metric: {results}")
 
     os.makedirs(os.path.dirname(args.output_path), exist_ok=True)
-    with open(args.output_path, "w") as f:
+    with open(os.path.join(args.output_path, "crows.json"), "w") as f:
         json.dump(results, f)
