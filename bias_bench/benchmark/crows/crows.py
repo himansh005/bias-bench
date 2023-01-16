@@ -285,7 +285,15 @@ class CrowSPairsRunner:
         print("=" * 100)
         print()
 
-        return round((stereo_score + antistereo_score) / N * 100, 2)
+        data = {
+            "samples":N,
+            "metric_score":round((stereo_score + antistereo_score) / N * 100, 2),
+            "stereoset_score":round(stereo_score / total_stereo * 100, 2),
+            "anti-stereoset_score":round(antistereo_score / total_antistereo * 100, 2),
+            "num_neutral":round(neutral / N * 100, 2)
+        }
+
+        return round((stereo_score + antistereo_score) / N * 100, 2), data
 
     def _joint_log_probability(self, tokens):
         start_token = (
