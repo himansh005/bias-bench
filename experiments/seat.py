@@ -42,7 +42,6 @@ parser.add_argument(
     action="store",
     type=str,
     default="bert-base-uncased",
-    choices=["bert-base-uncased", "albert-base-v2", "roberta-base", "gpt2"],
     help="HuggingFace model name or path (e.g., bert-base-uncased). Checkpoint from which a "
     "model is instantiated.",
 )
@@ -76,10 +75,15 @@ if __name__ == "__main__":
     model = getattr(models, args.model)(args.model_name_or_path)
     model.eval()
     tokenizer = transformers.AutoTokenizer.from_pretrained(args.model_name_or_path)
+    
+    testss = ["weat6", "weat7", "weat8", "weat6b", "weat7b", "weat8b"]
+    test2 = []
+    for i in testss:
+      test2.append("sent-"+i)
 
     runner = SEATRunner(
         experiment_id=experiment_id,
-        tests=args.tests,
+        tests=test2,
         data_dir=f"{args.persistent_dir}/data/seat",
         n_samples=args.n_samples,
         parametric=args.parametric,
@@ -87,7 +91,8 @@ if __name__ == "__main__":
         tokenizer=tokenizer,
     )
     results = runner()
-    print(results)
+    results = [x["effect_size"] for x in results]
+    print("Average Effect Size: {}".format(sum(results)/len(results)))
 
     os.makedirs(f"{args.persistent_dir}/results/seat", exist_ok=True)
     with open(f"{args.persistent_dir}/results/seat/{experiment_id}.json", "w") as f:

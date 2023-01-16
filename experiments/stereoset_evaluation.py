@@ -6,9 +6,7 @@ import os
 import re
 
 import numpy as np
-
 from bias_bench.benchmark.stereoset import dataloader
-
 
 thisdir = os.path.dirname(os.path.realpath(__file__))
 parser = argparse.ArgumentParser(

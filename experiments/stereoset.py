@@ -36,10 +36,16 @@ parser.add_argument(
     action="store",
     type=str,
     default="bert-base-uncased",
-    choices=["bert-base-uncased", "albert-base-v2", "roberta-base", "gpt2"],
     help="HuggingFace model name or path (e.g., bert-base-uncased). Checkpoint from which a "
     "model is instantiated.",
 )
+
+parser.add_argument(
+    "--output_path",
+    action="store",
+    type=str
+)
+
 parser.add_argument(
     "--batch_size",
     action="store",
@@ -47,6 +53,8 @@ parser.add_argument(
     default=1,
     help="The batch size to use during StereoSet intrasentence evaluation.",
 )
+
+
 parser.add_argument(
     "--seed",
     action="store",
@@ -89,6 +97,6 @@ if __name__ == "__main__":
 
     os.makedirs(f"{args.persistent_dir}/results/stereoset", exist_ok=True)
     with open(
-        f"{args.persistent_dir}/results/stereoset/{experiment_id}.json", "w"
+        f"{args.persistent_dir}/results/stereoset/{args.output_path}.json", "w"
     ) as f:
         json.dump(results, f, indent=2)
