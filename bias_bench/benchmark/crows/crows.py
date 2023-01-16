@@ -64,10 +64,10 @@ class CrowSPairsRunner:
 
     def __call__(self):
         if self._is_generative:
-            results = self._likelihood_score_generative()
+            results, data = self._likelihood_score_generative()
         else:
-            results = self._likelihood_score()
-        return results
+            results, data = self._likelihood_score()
+        return results, data
 
     def _likelihood_score(self):
         """Evaluates against the CrowS-Pairs dataset using likelihood scoring."""
@@ -185,7 +185,15 @@ class CrowSPairsRunner:
         print("=" * 100)
         print()
 
-        return round((stereo_score + antistereo_score) / N * 100, 2)
+        data = {
+            "samples":N,
+            "metric_score":round((stereo_score + antistereo_score) / N * 100, 2),
+            "stereoset_score":round(stereo_score / total_stereo * 100, 2),
+            "anti-stereoset_score":round(antistereo_score / total_antistereo * 100, 2),
+            "num_neutral":round(neutral / N * 100, 2)
+        }
+
+        return round((stereo_score + antistereo_score) / N * 100, 2), data
 
     def _likelihood_score_generative(self):
         df_data = self._read_data(self._input_file)
