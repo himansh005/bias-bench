@@ -87,5 +87,5 @@ if __name__ == "__main__":
     print(f"Metric: {results}")
 
     os.makedirs(os.path.dirname(args.output_path), exist_ok=True)
-    with open(args.output_path+".json", "w") as f:
+    with open(args.output_path, "w") as f:
         json.dump(results, f)
