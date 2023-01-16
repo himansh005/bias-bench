@@ -64,9 +64,9 @@ class CrowSPairsRunner:
 
     def __call__(self):
         if self._is_generative:
-            results, data = self._likelihood_score_generative()
+            data = self._likelihood_score_generative()
         else:
-            results, data = self._likelihood_score()
+            data = self._likelihood_score()
         return data
 
     def _likelihood_score(self):
@@ -193,7 +193,7 @@ class CrowSPairsRunner:
             "num_neutral":round(neutral / N * 100, 2)
         }
 
-        return round((stereo_score + antistereo_score) / N * 100, 2), data
+        return data
 
     def _likelihood_score_generative(self):
         df_data = self._read_data(self._input_file)
@@ -301,7 +301,7 @@ class CrowSPairsRunner:
             "num_neutral":round(neutral / N * 100, 2)
         }
 
-        return round((stereo_score + antistereo_score) / N * 100, 2), data
+        return data
 
     def _joint_log_probability(self, tokens):
         start_token = (
