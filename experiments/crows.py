@@ -81,10 +81,8 @@ if __name__ == "__main__":
         bias_type=args.bias_type,
         is_generative=_is_generative(args.model),  # Affects model scoring.
     )
-    results, json_data = runner()
-
-    print(f"Metric: {results}")
-
+    json_data = runner()
+    
     os.makedirs(os.path.dirname(args.output_path), exist_ok=True)
     with open(os.path.join(args.output_path, "crows.json"), "w") as f:
         json.dump(json_data, f)

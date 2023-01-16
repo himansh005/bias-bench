@@ -67,7 +67,7 @@ class CrowSPairsRunner:
             results, data = self._likelihood_score_generative()
         else:
             results, data = self._likelihood_score()
-        return results, data
+        return data
 
     def _likelihood_score(self):
         """Evaluates against the CrowS-Pairs dataset using likelihood scoring."""
